@@ -5,9 +5,11 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
+import { KeysPipe } from './pipe/key-pipe'
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, KeysPipe
   ],
   imports: [
     BrowserModule,

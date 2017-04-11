@@ -1,0 +1,57 @@
+import { Component } from '@angular/core';
+
+import { Headers, Http } from '@angular/http';
+
+import 'rxjs/add/operator/toPromise';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app works!';
+  t     = '?';
+
+  w;
+
+  result;
+  time;
+
+  constructor(private http: Http) {
+    const startTime = Date.now();
+    const promise = this.add(5,2);
+    promise
+      .then( result => this.add(result, 3) )
+      .then( result => {
+        this.result = result;
+        this.time = Date.now() - startTime;
+    });
+  }
+
+  test() {
+    this.title = this.title.concat("!");
+    const promise = this.http.get('http://localhost:5000').toPromise();
+    promise.then( response => {
+      this.w = response.json();
+      this.t = this.w["9F10"];
+    });
+    for(var key in this.w) {
+      console.log( key + " -> " + this.w[key] );
+    }
+  }
+
+  add(x, y) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(x + y);
+      }, 100);
+    });
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
+  }
+
+}

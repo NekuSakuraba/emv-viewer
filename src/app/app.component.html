@@ -1,3 +1,5 @@
 <h1>
   {{title}}
 </h1>
+<div *ngFor="let tlv of (tlvs | keys)">{{tlv.key}} -> {{tlv.value}}</div>
+<button (click)="doit()">go</button>
